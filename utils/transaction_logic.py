@@ -53,7 +53,7 @@ def create_transaction_with_debts(transaction: TransactionModel, debts: List[Deb
 
 def get_all_transactions(engine):
     session = Session(engine)
-    statement = select(Transaction).where(Transaction.logical_delete == False)
+    statement = select(Transaction).where(Transaction.logical_delete == False).order_by(Transaction.issue_date.desc())
     result = session.execute(statement)
     results = []
     for row in result:
