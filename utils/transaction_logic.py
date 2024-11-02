@@ -1,8 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import insert
-from sqlalchemy import select
-from sqlalchemy import update
+from sqlalchemy import insert, select, update, func
 
 from sqlalchemy.orm import Session
 
@@ -132,6 +130,22 @@ def get_transaction(id, engine):
         )
         return result
     session.close()
+
+def update_transaction_status(transaction_ids: List[int], status_id: int, engine):
+    stmt = update(
+        Transaction
+    ).where(
+        Transaction.id.in_(transaction_ids)
+    ).values(
+        status_id = status_id,
+        updated_at = func.current_timestamp()
+    )
+
+    session = Session(engine)
+    result = session.execute(stmt)
+    session.commit()
+    session.close()
+    return result
 
 def update_transaction(transaction: TransactionModel, engine):
     session = Session(engine)

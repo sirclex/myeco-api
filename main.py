@@ -198,6 +198,33 @@ async def get_sum_debts_by_identity(api_key: str = Security(get_api_key)):
         })
     return response
 
+@app.post("/setDoneDebt")
+async def set_done_debt(debt_ids: List[int], api_key: str = Security(get_api_key)):
+    result = debt_logic.update_debt_status(debt_ids=debt_ids, status_id=2, engine=engine)
+    transaction_ids = []
+    for record in result:
+        transaction_ids.append(*record)
+
+    statuses = debt_logic.check_transaction_status(transaction_ids, engine)
+    if (len(transaction_ids) != len(statuses)):
+        return None
+
+    transaction_ids_done = []
+    transaction_ids_pending = []
+    for i in range(len(transaction_ids)):
+        if (statuses[i]):
+            transaction_ids_pending.append(transaction_ids[i])
+        else:
+            transaction_ids_done.append(transaction_ids[i])
+
+    if (len(transaction_ids_done) > 0):
+        transaction_logic.update_transaction_status(transaction_ids=transaction_ids_done, status_id=2, engine=engine)
+    
+    if (len(transaction_ids_pending) > 0):
+        transaction_logic.update_transaction_status(transaction_ids=transaction_ids_pending, status_id=1, engine=engine)
+
+    return len(transaction_ids)
+
 
 @app.post("/debt/delete")
 async def delete_debt(id: int, api_key: str = Security(get_api_key)):

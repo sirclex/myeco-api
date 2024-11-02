@@ -149,7 +149,8 @@ def update_debt_status(debt_ids: List[int], status_id: int, engine):
     ).where(
         Debt.id.in_(debt_ids)
     ).values(
-        status_id = status_id
+        status_id = status_id,
+        updated_at = func.current_timestamp()
     ).returning(Debt.transaction_id)
 
     session = Session(engine)
@@ -157,6 +158,24 @@ def update_debt_status(debt_ids: List[int], status_id: int, engine):
     session.commit()
     session.close()
     return result
+
+def check_transaction_status(transaction_ids: List[int], engine):
+    statuses = []
+    session = Session(engine)
+    for transaction_id in transaction_ids:
+        stmt = select(
+            func.count(Debt.id)
+        ).where(
+            and_(
+                Debt.transaction_id == transaction_id,
+                Debt.status_id == 1
+            )
+        )
+        result = session.execute(stmt).scalars().first()
+        statuses.append(result > 0)
+    
+    return statuses
+
 
 def revive_debt(id, engine):
     session = Session(engine)
