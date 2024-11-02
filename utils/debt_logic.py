@@ -11,7 +11,8 @@ from models.identity import Identity, IdentityModel
 from models.identity_type import IdentityTypeModel
 from models.transaction_status import TransactionStatus, TransactionStatusModel
 from models.transaction import Transaction
-from models.wallet import Wallet
+from models.transaction_category import TransactionCategory
+from models.transaction_subcategory import TransactionSubcategory
 
 def create_debt(debt: DebtModel, engine):
     session = Session(engine)
@@ -47,11 +48,11 @@ def get_all_debts(engine):
     session = Session(engine)
     stmt = select(
         Debt.id,
-        Debt.transaction_id,
         Transaction.issue_date,
         Debt.in_out,
-        Wallet.name.label("wallet"),
         Debt.amount,
+        TransactionCategory.name.label("category"),
+        TransactionSubcategory.name.label("subcategory"),
         Debt.detail,
         Identity.name.label("identity"),
         Debt.status_id
@@ -65,8 +66,12 @@ def get_all_debts(engine):
         Debt.identity_id == Identity.id
     ).join_from(
         Transaction,
-        Wallet,
-        Transaction.wallet_id == Wallet.id
+        TransactionCategory,
+        Transaction.category_id == TransactionCategory.id
+    ).join_from(
+        Transaction,
+        TransactionSubcategory,
+        Transaction.subcategory_id == TransactionSubcategory.id
     ).where(
         Debt.logical_delete == False
     ).order_by(

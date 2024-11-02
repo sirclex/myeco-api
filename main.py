@@ -175,15 +175,16 @@ async def get_debts(api_key: str = Security(get_api_key)):
     for row in result:
         response.append({
             "id": row.id,
-            "transaction_id": row.transaction_id,
             "issue_date": row.issue_date,
             "in_out": row.in_out,
-            "wallet": row.wallet,
             "amount": row.amount,
+            "category": row.category,
+            "subcategory": row.subcategory,
             "detail": row.detail,
             "identity" : row.identity,
             "status_id": row.status_id
         })
+        print(response)
     return response
 
 @app.get("/pendingDebt")
@@ -198,9 +199,9 @@ async def get_sum_debts_by_identity(api_key: str = Security(get_api_key)):
         })
     return response
 
-@app.post("/setDoneDebt")
-async def set_done_debt(debt_ids: List[int], api_key: str = Security(get_api_key)):
-    result = debt_logic.update_debt_status(debt_ids=debt_ids, status_id=2, engine=engine)
+@app.post("/updateStatusDebt")
+async def set_done_debt(debt_ids: List[int], status_id: int, api_key: str = Security(get_api_key)):
+    result = debt_logic.update_debt_status(debt_ids=debt_ids, status_id=status_id, engine=engine)
     transaction_ids = []
     for record in result:
         transaction_ids.append(*record)
