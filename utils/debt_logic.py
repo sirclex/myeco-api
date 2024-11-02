@@ -1,15 +1,13 @@
 from datetime import datetime
 
-from sqlalchemy import insert
-from sqlalchemy import select
-from sqlalchemy import update
+from sqlalchemy import insert, select, update, func, and_
 
 from sqlalchemy.orm import Session
 
 from typing import List
 
 from models.debt import Debt, DebtModel
-from models.identity import IdentityModel
+from models.identity import Identity, IdentityModel
 from models.identity_type import IdentityTypeModel
 from models.transaction_status import TransactionStatusModel
 
@@ -75,6 +73,21 @@ def get_all_debts(engine):
         ))
     session.close()
     return results
+
+def get_sum_debt_by_identity(engine):
+    stmt = select(
+        Identity.name,
+        Debt.in_out,
+        func.sum(Debt.amount).label("amount")
+    ).join(
+        Identity, 
+        Debt.identity_id == Identity.id
+    ).where(
+        Debt.status_id == 1
+    ).group_by(Identity.name, Debt.in_out)
+    session = Session(engine)
+    result = session.execute(stmt).fetchall()
+    return result
 
 def get_debt(id, engine):
     session = Session(engine)
