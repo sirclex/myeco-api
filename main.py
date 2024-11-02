@@ -170,7 +170,21 @@ async def create_debt(debt: DebtModel, api_key: str = Security(get_api_key)):
 
 @app.get("/debts")
 async def get_debts(api_key: str = Security(get_api_key)):
-    return debt_logic.get_all_debts(engine)
+    result = debt_logic.get_all_debts(engine)
+    response = []
+    for row in result:
+        response.append({
+            "id": row.id,
+            "transaction_id": row.transaction_id,
+            "issue_date": row.issue_date,
+            "in_out": row.in_out,
+            "wallet": row.wallet,
+            "amount": row.amount,
+            "detail": row.detail,
+            "identity" : row.identity,
+            "status_id": row.status_id
+        })
+    return response
 
 @app.get("/pendingDebt")
 async def get_sum_debts_by_identity(api_key: str = Security(get_api_key)):
