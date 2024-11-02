@@ -146,7 +146,6 @@ async def get_transactions(api_key: str = Security(get_api_key)):
 async def get_transaction(id: int, api_key: str = Security(get_api_key)):
     return transaction_logic.get_transaction(id, engine)
 
-
 @app.post("/transaction/delete")
 async def delete_transaction(id: int, api_key: str = Security(get_api_key)):
     return transaction_logic.delete_transaction(id, engine)
@@ -184,7 +183,6 @@ async def get_debts(api_key: str = Security(get_api_key)):
             "identity" : row.identity,
             "status_id": row.status_id
         })
-        print(response)
     return response
 
 @app.get("/pendingDebt")
