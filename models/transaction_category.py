@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from typing import List
+from typing import Optional
 
 from fastapi import Query
 from pydantic import BaseModel
@@ -29,5 +30,5 @@ class TransactionCategory(Base):
     logical_delete: Mapped[bool] = mapped_column(Boolean)
 
 class TransactionCategoryModel(BaseModel):
-    id: int
-    name: str = Query(default=None, min_length=1)
+    id: Optional[int] = None
+    name: Optional[str] = Query(default=None, min_length=1)

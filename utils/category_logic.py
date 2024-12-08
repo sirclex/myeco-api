@@ -21,3 +21,19 @@ def get_all_categories(engine):
     
     session.close()
     return categories
+
+def create_category(category: TransactionCategoryModel, engine):
+    session = Session(engine)
+    result = session.execute(
+        insert(TransactionCategory),
+        [
+            {
+                "name": category.name,
+                "updated_at": datetime.now(),
+                "logical_delete": False
+            }
+        ]
+    )
+    session.commit()
+    session.close()
+    return 1
