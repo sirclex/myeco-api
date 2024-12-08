@@ -44,3 +44,20 @@ def get_subcategories(engine, category_id):
     
     session.close()
     return categories
+
+def create_subcategory(subcategory: TransactionSubcategoryModel, engine):
+    session = Session(engine)
+    result = session.execute(
+        insert(TransactionSubcategory),
+        [
+            {
+                "name": subcategory.name,
+                "transaction_category_id": subcategory.transaction_category_id,
+                "updated_at": datetime.now(),
+                "logical_delete": False
+            }
+        ]
+    )
+    session.commit()
+    session.close()
+    return 1
