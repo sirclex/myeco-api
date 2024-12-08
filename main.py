@@ -31,6 +31,8 @@ from models.wallet import WalletModel
 from models.identity import IdentityModel
 from models.transaction import TransactionModel
 from models.debt import DebtModel
+from models.transaction_category import TransactionCategoryModel
+from models.transaction_subcategory import TransactionSubcategoryModel
 
 from utils import wallet_logic
 from utils import identity_logic
@@ -115,6 +117,10 @@ async def update_identity(identity: IdentityModel, api_key: str = Security(get_a
 async def get_categories(api_key: str = Security(get_api_key)):
     return category_logic.get_all_categories(engine)
 
+@app.post("/category/create")
+async def get_categories(category: TransactionCategoryModel, api_key: str = Security(get_api_key)):
+    return category_logic.create_category(category, engine)
+
 
 # TODO Transaction Subcategory
 # @app.get("/allsubcategories")
@@ -125,6 +131,10 @@ async def get_categories(api_key: str = Security(get_api_key)):
 @app.get("/subcategories")
 async def get_subcategories(category_id: int, api_key: str = Security(get_api_key)):
     return subcategory_logic.get_subcategories(engine, category_id)
+
+@app.post("/subcategory/create")
+async def get_subcategories(subcategory: TransactionSubcategoryModel, api_key: str = Security(get_api_key)):
+    return subcategory_logic.create_subcategory(subcategory, engine)
 
 
 # Transaction
