@@ -1,11 +1,10 @@
 from typing import Any, List
 
-from fastapi import APIRouter, Depends, Security, HTTPException, status
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from schemas.wallet import WalletCreate, WalletUpdate, WalletResponse
 from schemas.message import Message
-import crud
 from logic import wallet_logic
 from api.deps import get_db
 
