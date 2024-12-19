@@ -1,22 +1,30 @@
 from typing import Optional
 from pydantic import BaseModel
+from datetime import datetime
 
 class WalletBase(BaseModel):
-    id: Optional[int]
     name: Optional[str]
     provider: Optional[str]
     number: Optional[str]
     balance: Optional[float]
 
 class WalletCreate(WalletBase):
-    id: int = None
     name: str
     provider: str
     balance: float
+    updated_at: datetime = datetime.now()
+    logical_delete: bool = False
 
 class WalletUpdate(WalletBase):
     id: int
+    updated_at: datetime = datetime.now()
+
+class WalletDelete(WalletBase):
+    id: int
+    updated_at: datetime = datetime.now()
+    logical_delete: bool = True
 
 class WalletResponse(WalletBase):
+    id: Optional[int]
     class Config:
         from_attributes = True
