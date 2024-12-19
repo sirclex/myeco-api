@@ -2,7 +2,7 @@ from typing import Any
 
 from fastapi import HTTPException, status
 
-from schemas.wallet import WalletCreate, WalletUpdate, WalletResponse
+from schemas.wallet import WalletCreate, WalletUpdate
 import crud
 from sqlalchemy.orm import Session
 
