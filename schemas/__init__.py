@@ -3,3 +3,4 @@ from schemas.identity_type import IdentityTypeBase, IdentityTypeCreate, Identity
 from schemas.identity import IdentityBase, IdentityCreate, IdentityUpdate, IdentityResponse
 from schemas.status import StatusBase, StatusCreate, StatusUpdate, StatusResponse
 from schemas.category import CategoryBase, CategoryCreate, CategoryUpdate, CategoryResponse
+from schemas.subcategory import SubcategoryBase, SubcategoryCreate, SubcategoryUpdate, SubcategoryResponse
