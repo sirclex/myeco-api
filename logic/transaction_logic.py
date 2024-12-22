@@ -3,6 +3,7 @@ from typing import Any
 from fastapi import HTTPException, status
 
 from schemas.transaction import TransactionCreate, TransactionUpdate
+from schemas.debt import DebtCreate
 import crud
 from sqlalchemy.orm import Session
 
@@ -19,8 +20,12 @@ def get_transaction(db: Session, transaction_id: int) -> Any:
         )
     return transaction
 
-def create_transaction(db: Session, transaction_in: TransactionCreate) -> Any:
+def create_transaction(db: Session, transaction_in: TransactionCreate, debts_in: list[DebtCreate]) -> Any:
     transaction = crud.transaction.create(db, obj_in=transaction_in)
+    if (debts_in):
+        for debt_in in debts_in:
+            debt_in.transaction_id = transaction.id
+            crud.debt.create(db, obj_in=debt_in)
     return transaction
 
 def update_transaction(db: Session, transaction_in: TransactionUpdate) -> Any:

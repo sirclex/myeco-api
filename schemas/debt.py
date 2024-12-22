@@ -11,7 +11,7 @@ class DebtBase(BaseModel):
     status_id: Optional[int]
 
 class DebtCreate(DebtBase):
-    transaction_id: int
+    transaction_id: Optional[int] = None
     is_income: bool
     amount: float
     identity_id: int
