@@ -3,12 +3,12 @@ from pydantic import BaseModel
 from datetime import datetime
 
 class DebtBase(BaseModel):
-    transaction_id: Optional[int]
-    is_income: Optional[bool]
-    amount: Optional[float]
-    identity_id: Optional[int]
-    detail: Optional[str]
-    status_id: Optional[int]
+    transaction_id: Optional[int] = None
+    is_income: Optional[bool] = None
+    amount: Optional[float] = None
+    identity_id: Optional[int] = None
+    detail: Optional[str] = None
+    status_id: Optional[int] = None
 
 class DebtCreate(DebtBase):
     transaction_id: Optional[int] = None

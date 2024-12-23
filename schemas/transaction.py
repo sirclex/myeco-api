@@ -3,14 +3,14 @@ from pydantic import BaseModel
 from datetime import datetime
 
 class TransactionBase(BaseModel):
-    issue_at: Optional[datetime]
-    wallet_id: Optional[int]
-    is_income: Optional[bool]
-    amount: Optional[float]
-    category_id: Optional[int]
-    subcategory_id: Optional[int]
-    detail: Optional[str]
-    status_id: Optional[int]
+    issue_at: Optional[datetime] = None
+    wallet_id: Optional[int] = None
+    is_income: Optional[bool] = None
+    amount: Optional[float] = None
+    category_id: Optional[int] = None
+    subcategory_id: Optional[int] = None
+    detail: Optional[str] = None
+    status_id: Optional[int] = None
 
 class TransactionCreate(TransactionBase):
     issue_at: datetime

@@ -22,6 +22,10 @@ def create_debt(*, db: Session = Depends(get_db), wallet_in: DebtCreate) -> Any:
 def update_debt(*, db: Session = Depends(get_db), wallet_in: DebtUpdate) -> Any:
     return debt_logic.update_debt(db, wallet_in)
 
+@router.put("/multi", response_model=List[DebtResponse])
+def update_multi_debts(*, db: Session = Depends(get_db), debts_in: list[DebtUpdate]) -> Any:
+    return debt_logic.update_multi_debts(db, debts_in)
+
 @router.delete("", response_model=Message)
 def delete_debt(*, db: Session = Depends(get_db), id: int) -> Any:
     return debt_logic.delete_debt(db, id)
