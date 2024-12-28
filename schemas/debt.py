@@ -31,5 +31,10 @@ class DebtDelete(DebtBase):
 
 class DebtResponse(DebtBase):
     id: Optional[int]
+    issue_at: Optional[datetime] = None
+    category: Optional[str] = None
+    subcategory: Optional[str] = None
+    identity: Optional[str] = None
+    status: Optional[str] = None
     class Config:
         from_attributes = True

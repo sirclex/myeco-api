@@ -35,5 +35,9 @@ class TransactionDelete(TransactionBase):
 
 class TransactionResponse(TransactionBase):
     id: Optional[int]
+    wallet: Optional[str] = None
+    category: Optional[str] = None
+    subcategory: Optional[str] = None
+    status: Optional[str] = None
     class Config:
         from_attributes = True

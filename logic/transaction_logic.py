@@ -7,8 +7,8 @@ from schemas.debt import DebtCreate
 import crud
 from sqlalchemy.orm import Session
 
-def get_all_transactions(db: Session) -> Any:
-    transactions = crud.transaction.get_multi(db)
+def get_all_transactions_info(db: Session) -> Any:
+    transactions = crud.transaction.get_transaction_info(db)
     return transactions
 
 def get_transaction(db: Session, transaction_id: int) -> Any:

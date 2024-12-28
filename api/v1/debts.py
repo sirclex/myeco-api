@@ -12,7 +12,7 @@ router = APIRouter()
 
 @router.get("", response_model=List[DebtResponse])
 def get_all_debts(db: Session = Depends(get_db)) -> Any:
-    return debt_logic.get_all_debts(db)
+    return debt_logic.get_all_debts_info(db)
 
 @router.post("", response_model=DebtResponse)
 def create_debt(*, db: Session = Depends(get_db), wallet_in: DebtCreate) -> Any:
