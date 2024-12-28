@@ -11,7 +11,9 @@ from api.deps import get_db
 router = APIRouter()
 
 @router.get("", response_model=List[SubcategoryResponse])
-def get_all_subcategories(db: Session = Depends(get_db)) -> Any:
+def get_subcategories(db: Session = Depends(get_db), category_id: int = None) -> Any:
+    if category_id is not None:
+        return subcategory_logic.get_subcategories_by_category_id(db, category_id)
     return subcategory_logic.get_all_subcategories(db)
 
 @router.post("", response_model=SubcategoryResponse)

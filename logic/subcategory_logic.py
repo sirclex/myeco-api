@@ -10,6 +10,10 @@ def get_all_subcategories(db: Session) -> Any:
     subcategories = crud.subcategory.get_multi(db)
     return subcategories
 
+def get_subcategories_by_category_id(db: Session, category_id: int) -> Any:
+    subcategories = crud.subcategory.get_by_category_id(db, category_id)
+    return subcategories
+
 def get_subcategory(db: Session, subcategory_id: int) -> Any:
     subcategory = crud.subcategory.get(db, subcategory_id)
     if not subcategory:
