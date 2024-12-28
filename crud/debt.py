@@ -14,6 +14,7 @@ class CRUDDebt(CRUDBase[Debt, DebtCreate, DebtUpdate]):
         return db.query(
             Debt.id,
             Debt.transaction_id,
+            Transaction.issue_at,
             Debt.is_income,
             Debt.amount,
             Category.name.label("category"),
@@ -33,6 +34,6 @@ class CRUDDebt(CRUDBase[Debt, DebtCreate, DebtUpdate]):
             Subcategory, Transaction.subcategory_id == Subcategory.id
         ).join(
             Status, Debt.status_id == Status.id
-        ).all()
+        ).order_by(Transaction.issue_at.desc()).all()
 
 debt = CRUDDebt(Debt)

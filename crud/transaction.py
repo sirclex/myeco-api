@@ -12,6 +12,7 @@ class CRUDTransaction(CRUDBase[Transaction, TransactionCreate, TransactionUpdate
     def get_transaction_info(self, db: Session):
         return db.query(
             Transaction.id,
+            Transaction.issue_at,
             Transaction.wallet_id,
             Wallet.name.label("wallet"),
             Transaction.is_income,
@@ -31,6 +32,6 @@ class CRUDTransaction(CRUDBase[Transaction, TransactionCreate, TransactionUpdate
             Subcategory, Transaction.subcategory_id == Subcategory.id
         ).join(
             Status, Transaction.status_id == Status.id
-        ).all()
+        ).order_by(Transaction.issue_at.desc()).all()
 
 transaction = CRUDTransaction(Transaction)
