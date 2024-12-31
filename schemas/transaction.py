@@ -21,17 +21,17 @@ class TransactionCreate(TransactionBase):
     subcategory_id: int
     detail: str
     status_id: int
-    updated_at: datetime = datetime.now()
-    logical_delete: bool = False
+    updated_at: Optional[datetime] = datetime.now()
+    logical_delete: Optional[bool] = False
 
 class TransactionUpdate(TransactionBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
 
 class TransactionDelete(TransactionBase):
     id: int
-    updated_at: datetime = datetime.now()
-    logical_delete: bool = True
+    updated_at: Optional[datetime] = datetime.now()
+    logical_delete: Optional[bool] = True
 
 class TransactionResponse(TransactionBase):
     id: Optional[int]

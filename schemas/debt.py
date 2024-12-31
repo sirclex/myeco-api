@@ -17,17 +17,17 @@ class DebtCreate(DebtBase):
     identity_id: int
     detail: str
     status_id: int
-    updated_at: datetime = datetime.now()
-    logical_delete: bool = False
+    updated_at: Optional[datetime] = datetime.now()
+    logical_delete: Optional[bool] = False
 
 class DebtUpdate(DebtBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
 
 class DebtDelete(DebtBase):
     id: int
-    updated_at: datetime = datetime.now()
-    logical_delete: bool = True
+    updated_at: Optional[datetime] = datetime.now()
+    logical_delete: Optional[bool] = True
 
 class DebtResponse(DebtBase):
     id: Optional[int]

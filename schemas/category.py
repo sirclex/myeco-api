@@ -7,16 +7,16 @@ class CategoryBase(BaseModel):
 
 class CategoryCreate(CategoryBase):
     name: str
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = False
 
 class CategoryUpdate(CategoryBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
 
 class CategoryDelete(CategoryBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = True
 
 class CategoryResponse(CategoryBase):

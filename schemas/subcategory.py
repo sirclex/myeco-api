@@ -9,16 +9,16 @@ class SubcategoryBase(BaseModel):
 class SubcategoryCreate(SubcategoryBase):
     name: str
     category_id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = False
 
 class SubcategoryUpdate(SubcategoryBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
 
 class SubcategoryDelete(SubcategoryBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = True
 
 class SubcategoryResponse(SubcategoryBase):

@@ -7,16 +7,16 @@ class StatusBase(BaseModel):
 
 class StatusCreate(StatusBase):
     name: str
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = False
 
 class StatusUpdate(StatusBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
 
 class StatusDelete(StatusBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = True
 
 class StatusResponse(StatusBase):

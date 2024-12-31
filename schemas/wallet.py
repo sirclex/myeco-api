@@ -12,16 +12,16 @@ class WalletCreate(WalletBase):
     name: str
     provider: str
     balance: float
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = False
 
 class WalletUpdate(WalletBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
 
 class WalletDelete(WalletBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = True
 
 class WalletResponse(WalletBase):

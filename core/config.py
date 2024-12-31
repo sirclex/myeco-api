@@ -12,6 +12,8 @@ class Settings(BaseSettings):
 
     CORS_ORIGIN: str = os.getenv("CORS_ORIGIN")
 
+    KAFKA_SERVER: str = os.getenv("KAFKA_SERVER")
+
     class Config:
         env_file =".env"
 

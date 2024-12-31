@@ -1,0 +1,8 @@
+IDENTITY_NOT_FOUND = "The identity with this ID does not exist in the system"
+CATEGORY_NOT_FOUND = "The category with this ID does not exist in the system"
+SUBCATEGORY_NOT_FOUND = "The subcategory with this ID does not exist in the system"
+DEBT_NOT_FOUND = "The debt with this ID does not exist in the system"
+TRANSACTION_NOT_FOUND = "The transaction with this ID does not exist in the system"
+STATUS_NOT_FOUND = "The status with this ID does not exist in the system"
+IDENTITY_TYPE_NOT_FOUND = "The identity type with this ID does not exist in the system"
+WALLET_NOT_FOUND = "The wallet with this ID does not exist in the system"

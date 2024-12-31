@@ -7,16 +7,16 @@ class IdentityTypeBase(BaseModel):
 
 class IdentityTypeCreate(IdentityTypeBase):
     name: str
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = False
 
 class IdentityTypeUpdate(IdentityTypeBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
 
 class IdentityTypeDelete(IdentityTypeBase):
     id: int
-    updated_at: datetime = datetime.now()
+    updated_at: Optional[datetime] = datetime.now()
     logical_delete: bool = True
 
 class IdentityTypeResponse(IdentityTypeBase):
