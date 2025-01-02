@@ -109,7 +109,7 @@ def update_multi_debts(db: Session, debts_in: list[DebtUpdate]) -> Any:
         cooked_kafka_data.append(
             {
                 "id": transaction.id,
-                "issue_at": transaction.issue_at,
+                "issue_at": transaction.issue_at.isoformat(),
                 "wallet_id": transaction.wallet_id,
                 "is_income": transaction.is_income,
                 "amount": transaction.amount,
