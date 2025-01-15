@@ -25,6 +25,8 @@ def get_transaction(db: Session, transaction_id: int) -> Any:
         )
     return transaction
 
+def get_total_transaction(db: Session) -> Any:
+    return crud.transaction.count(db)
 
 def create_transaction(
     db: Session, transaction_in: TransactionCreate, debts_in: list[DebtCreate]

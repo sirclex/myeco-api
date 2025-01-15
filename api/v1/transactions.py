@@ -15,6 +15,10 @@ router = APIRouter()
 def get_transactions(offset: int, limit: int, db: Session = Depends(get_db)) -> Any:
     return transaction_logic.get_transactions_info(offset, limit, db)
 
+@router.get("/total")
+def get_total_transaction(db: Session = Depends(get_db)) -> int:
+    return transaction_logic.get_total_transaction(db)
+
 @router.post("", response_model=TransactionResponse)
 def create_transaction(*, db: Session = Depends(get_db), transaction_in: TransactionCreate, debts_in: list[DebtCreate]) -> Any:
     return transaction_logic.create_transaction(db, transaction_in, debts_in)
