@@ -9,7 +9,7 @@ from models.subcategory import Subcategory
 from schemas import TransactionCreate, TransactionUpdate
 
 class CRUDTransaction(CRUDBase[Transaction, TransactionCreate, TransactionUpdate]):
-    def get_transaction_info(self, db: Session):
+    def get_transaction_info(self, db: Session, offset: int, limit: int):
         return db.query(
             Transaction.id,
             Transaction.issue_at,
@@ -32,6 +32,6 @@ class CRUDTransaction(CRUDBase[Transaction, TransactionCreate, TransactionUpdate
             Subcategory, Transaction.subcategory_id == Subcategory.id
         ).join(
             Status, Transaction.status_id == Status.id
-        ).order_by(Transaction.issue_at.desc()).all()
+        ).order_by(Transaction.issue_at.desc()).offset(offset).limit(limit)
 
 transaction = CRUDTransaction(Transaction)
