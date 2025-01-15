@@ -11,8 +11,8 @@ from utils.kafka import send_to_kafka
 from constants import kafka_topics, exceptions
 
 
-def get_all_transactions_info(db: Session) -> Any:
-    transactions = crud.transaction.get_transaction_info(db)
+def get_transactions_info(offset: int, limit: int, db: Session) -> Any:
+    transactions = crud.transaction.get_transaction_info(db, offset, limit)
     return transactions
 
 
